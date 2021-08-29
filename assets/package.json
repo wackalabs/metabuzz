@@ -6,7 +6,8 @@
     "tsc": "../node_modules/.bin/tsc",
     "build": "webpack --config webpack.dev.config.js --mode development",
     "deploy": "NODE_ENV=production parallel-webpack --config webpack.prod.config.js --mode production --no-stats",
-    "dev-server": "webpack serve --open --config webpack.dev.config.js --hot --stdin",
+    "start": "webpack serve --open --config webpack.dev.config.js --hot --stdin",
+    "serve": "pm2 start node_modules/react-scripts/scripts/start.js --name assets",
     "test-server": "webpack serve --open --config webpack.test.config.js --hot --stdin",
     "watch": "webpack --config webpack.dev.config.js --mode development --watch",
     "test": "jest"
