@@ -246,12 +246,12 @@ const ListPage = (props) => {
               {memOpen ? (
                 <ModalBody>
                   <ExploreNavMenu>
-                    <ExploreNavItem active={tab == 'Members'}
+                    <ExploreNavItem $active={tab == 'Members'}
                       onClick={() => setTab('Members')}
                     >
                       Members ({list.users.length})
                     </ExploreNavItem>
-                    <ExploreNavItem active={tab == 'Search'}
+                    <ExploreNavItem $active={tab == 'Search'}
                       onClick={() => setTab('Search')}
                     >
                       Search

@@ -39,6 +39,11 @@ export const overrideOrigin = (host: string) => {
   config = get(originUrl, env, isDev)
 }
 
+const moralisServer = MORALIS_SERVER
+const moralisAppId = MORALIS_APP_ID
+const moralisApiKey = MORALIS_API_KEY
+const moralisServerUrl = MORALIS_SERVER_URL
+
 const get = (origin_url: string, environment: ENV, is_dev?: boolean) => {
   return {
     // our API endpoint
@@ -63,6 +68,11 @@ const get = (origin_url: string, environment: ENV, is_dev?: boolean) => {
     appVersion: isReactNative ? process.version : (isNode ? null : window.appVersion),
 
     twitterUrl: 'https://twitter.com/Tandem',
+
+    moralisServer,
+    moralisAppId,
+    moralisApiKey,
+    moralisServerUrl,
 
     get isStaging() {
       return this.env == 'staging'

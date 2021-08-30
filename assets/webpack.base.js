@@ -23,6 +23,11 @@ const mode = process.env.NODE_ENV || 'development'
 const isDev = mode == 'development'
 const assetHost = process.env.ASSET_HOST || (isDev && !process.env.SERVE_STATIC ? 'http://localhost:9000' : '')
 
+const moralisServerName = isDev ? "Metabuzz Local" : "Metabuzz Testnet"
+const moralisAppId = isDev ? "NVjlqrYVBvpvW0ts3tFu3Yi308Ey7SSuV9t5i5kM" : "HxMiNDqH8MnvRP69EjSuIgajzzRCytwSc66hT4Z2"
+const moralisApiKey = isDev ? "TtnTitedmff6E2MDlWrEIkNCKzjdXgyMxsHFmiCM" : "2yRBLN6WE8U4MyHhNjwcPm5Am7etPa1YZTSAqPIL"
+const moralisServerUrl = isDev ? "https://revjx9hiqogz.usemoralis.com:2053/server" : "https://tpop7pz1tjfy.usemoralis.com:2053/server"
+
 const appEntries = {
   entry: {
     index: ['./src/src/index'],
@@ -151,7 +156,11 @@ const baseConfig = {
       IS_DESKTOP: JSON.stringify(false),
       HASH: JSON.stringify(commitHash),
       ORIGIN_HOST: JSON.stringify(''),
-      ASSET_HOST: JSON.stringify(assetHost)
+      ASSET_HOST: JSON.stringify(assetHost),
+      MORALIS_SERVER: JSON.stringify(moralisServerName),
+      MORALIS_APP_ID: JSON.stringify(moralisAppId),
+      MORALIS_API_KEY: JSON.stringify(moralisApiKey),
+      MORALIS_SERVER_URL: JSON.stringify(moralisServerUrl),
     }),
     new MomentLocalesPlugin(),
     new MomentTimezoneDataPlugin({

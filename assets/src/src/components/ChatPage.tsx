@@ -173,7 +173,7 @@ const ChatPage = (props) => {
             </ConvDiv>
             <ChatBottomWrapper>
               <ChatInputContainer
-                active={Boolean(room)}
+                $active={Boolean(room)}
               >
                 <input
                   disabled={!room}
@@ -305,7 +305,7 @@ const SenderDate = styled(Box)`
   font-size: 13px;
 `
 
-const ChatInputContainer = styled(Box)<{ active?: boolean }>`
+const ChatInputContainer = styled(Box)<{ $$active?: boolean }>`
   background-color: #e6ecf0;
   border: 1px solid transparent;
   border-radius: 9999px;
@@ -334,7 +334,7 @@ const ChatInputContainer = styled(Box)<{ active?: boolean }>`
     fill: rgb(29, 161, 242);
     cursor: pointer;
   }
-  ${p => p.active && css`
+  ${p => p.$active && css`
     background-color: #fff;
     input{
       border: 1px solid rgb(29, 161, 242);

@@ -111,7 +111,7 @@ const Home = () => {
           >
             <InnerInputBox>
               <TweetInput
-                active={tweetText.length > 0}
+                $active={tweetText.length > 0}
                 onPaste={(e) => e.preventDefault()}
                 id="tweet-box"
                 onKeyDown={(e) =>
@@ -161,7 +161,7 @@ const Home = () => {
                 >
                   {tweetText.length > 0 && `${tweetText.length}/280`}
                 </Box>
-                <TweetBtnSide active={tweetText.length > 0}
+                <TweetBtnSide $active={tweetText.length > 0}
                   onClick={submitTweet}
                 >
                   Tweet

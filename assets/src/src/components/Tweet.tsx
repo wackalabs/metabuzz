@@ -381,7 +381,7 @@ const TweetPage = (props) => {
                         }
                         onPaste={(e) => e.preventDefault()}
                         id="replyBox"
-                        active={replyText.length > 0}
+                        $active={replyText.length > 0}
                         placeholder="Tweet your reply"
                         html={tweetT.current}
                         onChange={handleChange}
@@ -430,7 +430,7 @@ const TweetPage = (props) => {
                                 : 'none',
                             )
                           }
-                          active={replyText.length > 0}>
+                          $active={replyText.length > 0}>
                           Reply
                         </TweetBtnSide>
                       </TweetBtnHolder>

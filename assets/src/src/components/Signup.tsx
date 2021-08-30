@@ -80,7 +80,7 @@ const SignUpPage = (props) => {
         <SignupBtnWrap
           type="submit"
           form="signupForm"
-          active={Boolean(username.length && password.length && name.length && email.length)}
+          $active={Boolean(username.length && password.length && name.length && email.length)}
         >
           Sign up
         </SignupBtnWrap>
@@ -146,7 +146,7 @@ const SignupInputContent = styled(Box)`
   }
 `
 
-const SignupBtnWrap = styled.button<{ active?: boolean }>`
+const SignupBtnWrap = styled.button<{ $active?: boolean }>`
   width: calc(100% - 20px);
   min-height: 49px;
   display: flex;
@@ -163,7 +163,7 @@ const SignupBtnWrap = styled.button<{ active?: boolean }>`
   outline: none;
   border: 1px solid rgba(0,0,0,0);
   font-size: 16px;
-  ${p => p.active && css`
+  ${p => p.$active && css`
     opacity: 1;
     cursor: pointer;
   `}

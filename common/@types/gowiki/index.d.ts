@@ -32,6 +32,10 @@ declare var HASH: string
 declare var ORIGIN_HOST: string
 declare var ASSET_HOST: string
 
+declare var MORALIS_SERVER: string
+declare var MORALIS_APP_ID: string
+declare var MORALIS_API_KEY: string
+declare var MORALIS_SERVER_URL: string
 interface Store {
   name?: string
   delete(key: string): void

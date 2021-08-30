@@ -846,7 +846,7 @@ const TweetCard = React.memo(function TweetCard(props: Props) {
                         }
                         onPaste={(e) => e.preventDefault()}
                         id="replyBox"
-                        active={replyText.length > 0}
+                        $active={replyText.length > 0}
                         placeholder="Tweet your reply"
                         html={tweetT.current}
                         onChange={handleChange}
@@ -895,7 +895,7 @@ const TweetCard = React.memo(function TweetCard(props: Props) {
                                 : 'none',
                             )
                           }
-                          active={replyText.length > 0}>
+                          $active={replyText.length > 0}>
                           Reply
                         </TweetBtnSide>
                       </TweetBtnHolder>

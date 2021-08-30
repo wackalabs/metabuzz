@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { useMoralis } from "react-moralis"
+import _ from "lodash"
+
 import { useStore } from '../store/store'
 import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import ContentEditable from 'react-contenteditable'
+
 import {
   enable as enableDarkMode,
   disable as disableDarkMode,
@@ -34,6 +38,8 @@ const Nav = ({ history }) => {
   const [tweetImage, setTweetImage] = useState<string>(null)
   const [imageLoaded, setImageLoaded] = useState(false)
 
+  const { authenticate, logout, isAuthenticated, user } = useMoralis()
+
   const tweetT = useRef('')
 
   const isInitialMount = useRef(true)
@@ -47,7 +53,9 @@ const Nav = ({ history }) => {
   }, [styleBody])
 
   useEffect(
-    () => () => (document.getElementsByTagName('body')[0].style.cssText = ''),
+    () => {
+      document.getElementsByTagName('body')[0].style.cssText = ''
+    },
     [],
   )
 
@@ -174,13 +182,13 @@ const Nav = ({ history }) => {
                 />
               </LogoWrapper>
               <NavLink to="/home">
-                <NavItemHover active={path === '/home'}>
+                <NavItemHover $active={path === '/home'}>
                   {path === '/home' ? <ICON_HOMEFILL /> : <ICON_HOME />}
                   <NavItem>Home</NavItem>
                 </NavItemHover>
               </NavLink>
               <NavLink to="/explore">
-                <NavItemHover active={path === '/expl'}>
+                <NavItemHover $active={path === '/expl'}>
                   {path === '/expl' ? <ICON_HASHFILL /> : <ICON_HASH />}
                   <NavItem>Explore</NavItem>
                 </NavItemHover>
@@ -188,19 +196,19 @@ const Nav = ({ history }) => {
               {session ? (
                 <>
                   <NavLink to="/notifications">
-                    <NavItemHover active={path === '/noti'}>
+                    <NavItemHover $active={path === '/noti'}>
                       {path === '/noti' ? <ICON_BELLFILL /> : <ICON_BELL />}
                       <NavItem>Notifications</NavItem>
                     </NavItemHover>
                   </NavLink>
                   <NavLink to="/messages">
-                    <NavItemHover active={path === '/mess'}>
+                    <NavItemHover $active={path === '/mess'}>
                       {path === '/mess' ? <ICON_INBOXFILL /> : <ICON_INBOX />}
                       <NavItem>Messages</NavItem>
                     </NavItemHover>
                   </NavLink>
                   <NavLink to="/bookmarks">
-                    <NavItemHover active={path === '/book'}>
+                    <NavItemHover $active={path === '/book'}>
                       {path === '/book' ? (
                         <ICON_BOOKMARKFILL />
                       ) : (
@@ -210,13 +218,13 @@ const Nav = ({ history }) => {
                     </NavItemHover>
                   </NavLink>
                   <NavLink to="/lists">
-                    <NavItemHover active={path === '/list'}>
+                    <NavItemHover $active={path === '/list'}>
                       {path === '/list' ? <ICON_LISTFILL /> : <ICON_LIST />}
                       <NavItem>Lists</NavItem>
                     </NavItemHover>
                   </NavLink>
                   <NavLink to={`/profile/${account && account.username}`}>
-                    <NavItemHover active={path === '/prof'}>
+                    <NavItemHover $active={path === '/prof'}>
                       {path === '/prof' ? <ICON_USERFILL /> : <ICON_USER />}
                       <NavItem>Profile</NavItem>
                     </NavItemHover>
@@ -228,7 +236,7 @@ const Nav = ({ history }) => {
                   <ICON_SETTINGS />
                   <NavItem>More</NavItem>
                 </NavItemHover>
-                <MoreMenuBackground active={moreMenu}
+                <MoreMenuBackground $active={moreMenu}
                   onClick={openMore}
                 >
                   <MoreModalWrapper>
@@ -236,24 +244,13 @@ const Nav = ({ history }) => {
                       <MoreMenuContent
                         top={document.getElementById('moremenu').getBoundingClientRect().top - 40}
                         left={document.getElementById('moremenu').getBoundingClientRect().left}
-                        h={!session ? 104 : null}
+                        h={!session ? 208 : null}
                         onClick={handleMenuClick}
                       >
                         <MoreMenuItem onClick={changeTheme}>
                           <Span>Change Theme</Span>
                           <Span>{theme ? <ICON_DARK /> : <ICON_LIGHT />}</Span>
                         </MoreMenuItem>
-                        {session ? (
-                          <Link
-                            to="/bookmarks"
-                            className="more-menu-item more-item"
-                          >
-                            <Span>Bookmarks</Span>
-                            <Span>
-                              <ICON_BOOKMARK />
-                            </Span>
-                          </Link>
-                        ) : null}
                         {session ? (
                           <MoreMenuItem
                             onClick={() => actions.logout()}
@@ -266,6 +263,21 @@ const Nav = ({ history }) => {
                             className="more-menu-item"
                           >
                             Log in
+                          </MoreMenuItem>
+                        )}
+                        {isAuthenticated ? (
+                          <MoreMenuItem
+                            onClick={() => logout()}
+                            className="more-menu-item"
+                          >
+                            {_.truncate(user?.get("username") || user?.get("ethAddress"), { length: 20 })}
+                          </MoreMenuItem>
+                        ) : (
+                          <MoreMenuItem
+                            onClick={() => authenticate()}
+                            className="more-menu-item"
+                          >
+                            Connect Wallet
                           </MoreMenuItem>
                         )}
                       </MoreMenuContent>
@@ -371,7 +383,7 @@ const Nav = ({ history }) => {
                       <m.Text fs={13} color={ tweetText.length >= 280 ? 'red' : null }>
                         {tweetText.length > 0 && `${tweetText.length}/280`}
                       </m.Text>
-                      <TweetBtnSide active={tweetText.length > 0} onClick={(e) => submitTweet(e)}>
+                      <TweetBtnSide $active={tweetText.length > 0} onClick={(e) => submitTweet(e)}>
                         Tweet
                       </TweetBtnSide>
                     </TweetBtnHolder>
@@ -477,8 +489,6 @@ const LogoWrapper = styled(Link)`
   margin-top: 11.5px;
   display: flex;
   margin-bottom: 15px;
-  // align-items: center;
-  // justify-content: center;
 `
 
 const link = css`
@@ -501,7 +511,7 @@ const NavLink = styled(Link)`
 
 const NavLinkBtn = styled(Box)`${link}`
 
-const NavItemHover = styled(Box)<{ active?: boolean }>`
+const NavItemHover = styled(Box)<{ $active?: boolean }>`
   svg{fill: rgb(16, 17, 17)}
   display: flex;
   align-items: center;
@@ -515,10 +525,10 @@ const NavItemHover = styled(Box)<{ active?: boolean }>`
     width: 26.25px; height:26.25px;
     min-width: 26.25px;
   }
-  ${p => p.active && 'svg { fill: rgb(29, 161, 242); }'}
+  ${p => p.$active && 'svg { fill: rgb(29, 161, 242); }'}
 `
 
-const NavItem = styled(Box)<{ active?: boolean }>`
+const NavItem = styled(Box)<{ $active?: boolean }>`
   font-size: 19px;
   font-weight: 700;
   margin-left: 20px;
@@ -526,7 +536,7 @@ const NavItem = styled(Box)<{ active?: boolean }>`
   @media (max-width: 1282px) {
     display: none;
   }
-  ${p => p.active && 'color: rgb(29, 161, 242);'}
+  ${p => p.$active && 'color: rgb(29, 161, 242);'}
 `
 
 const NavTweet = styled(Box)`
@@ -599,7 +609,7 @@ const NavTweetBtn = styled(Box)`
   }
 `
 
-const MoreMenuBackground = styled(Box)<{ active?: boolean }>`
+const MoreMenuBackground = styled(Box)<{ $active?: boolean }>`
   position: fixed; 
   z-index: 20; 
   left: 0;
@@ -608,7 +618,7 @@ const MoreMenuBackground = styled(Box)<{ active?: boolean }>`
   height: 100%;
   overflow: auto; 
   cursor: auto;
-  display: ${p => p.active ? 'block' : 'none'}
+  display: ${p => p.$active ? 'block' : 'none'}
 `
 
 const MoreModalWrapper = styled(Box)`
@@ -620,7 +630,7 @@ const MoreModalWrapper = styled(Box)`
 const MoreMenuContent = styled(Box)`
   min-height: 100px;
   max-width: 40vw;
-  max-height: 50vh;
+  max-height: 100vh;
   width: 190px;
   min-width: 190px;
   border-radius: 14px;
@@ -635,7 +645,7 @@ const MoreMenuContent = styled(Box)`
   display: flex;
   flex-direction: column;
   @media (min-width: 451px){
-    height: 104px;
+    max-height: 208px;
   }
 `
 

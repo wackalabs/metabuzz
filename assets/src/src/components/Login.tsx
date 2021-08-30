@@ -54,7 +54,7 @@ const LoginPage = () => {
             />
           </LoginInputContent>
         </LoginInputWrap>
-        <LoginBtnWrap active={username.length && password.length > 0}
+        <LoginBtnWrap $active={username.length && password.length > 0}
           type="submit" form="loginForm">
           Log in
         </LoginBtnWrap>
@@ -119,7 +119,7 @@ const LoginInputContent = styled(Box)`
   }
 `
 
-const LoginBtnWrap = styled.button<{ active?: boolean }>`
+const LoginBtnWrap = styled.button<{ $active?: boolean }>`
   width: calc(100% - 20px);
   min-height: 49px;
   display: flex;
@@ -135,7 +135,7 @@ const LoginBtnWrap = styled.button<{ active?: boolean }>`
   font-weight: bold;
   outline: none;
   border: 1px solid rgba(0,0,0,0);
-  ${p => p.active && css`
+  ${p => p.$active && css`
     opacity: 1;
     cursor: pointer;
   `}

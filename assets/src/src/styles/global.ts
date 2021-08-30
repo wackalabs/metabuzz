@@ -460,7 +460,7 @@ export const InputAttachWrapper = styled(Box)`
   }
 `
 
-export const TweetBtnSide = styled(Box)<{ active?: boolean }>`
+export const TweetBtnSide = styled(Box)<{ $active?: boolean }>`
   margin-left: 10px;
   min-height: 39px;
   min-width: calc(62.79px);
@@ -476,7 +476,7 @@ export const TweetBtnSide = styled(Box)<{ active?: boolean }>`
   opacity: 0.5;
   transition: 0.15s ease-in-out;
 
-  ${p => p.active && css`
+  ${p => p.$active && css`
     cursor: pointer;
     opacity: 1;
     &:hover {
@@ -485,8 +485,8 @@ export const TweetBtnSide = styled(Box)<{ active?: boolean }>`
   `}
 `
 
-export const TweetInput = styled(ContentEditable)<{ active?: boolean }>`
-  ${p => p.active && css`
+export const TweetInput = styled(ContentEditable)<{ $active?: boolean }>`
+  ${p => p.$active && css`
     color: rgb(20, 23, 26)
   `}
 `
@@ -560,10 +560,6 @@ export const WorkInProgress = styled(Box)`
   color: #657786;
   min-height: 2000px;
 `
-
-//   .dark-mode = styled(Box)`
-//     background-color: #1a1919 !important;
-//   `
 
 export const AlertWrapper = styled(Box)`
   position: fixed;

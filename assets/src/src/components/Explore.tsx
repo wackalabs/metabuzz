@@ -76,12 +76,12 @@ const Explore = (props) => {
       {!trendOpen ? (
         <Box>
           <ExploreNavMenu>
-            <ExploreNavItem active={tab === 'Trends'}
+            <ExploreNavItem $active={tab === 'Trends'}
               onClick={() => setTab('Trends')}
             >
               Trending
             </ExploreNavItem>
-            <ExploreNavItem active={tab === 'Search'}
+            <ExploreNavItem $active={tab === 'Search'}
               onClick={() => setTab('Search')}
             >
               Search
@@ -231,7 +231,7 @@ export const ExploreNavMenu = styled(Box)`
   border-bottom: 1px solid rgb(230, 236, 240);
 `
 
-export const ExploreNavItem = styled(Box)<{ active?: boolean }>`
+export const ExploreNavItem = styled(Box)<{ $$active?: boolean }>`
   padding: 15px;
   width: 100%;
   text-align: center;
@@ -246,7 +246,7 @@ export const ExploreNavItem = styled(Box)<{ active?: boolean }>`
     background-color: rgba(29, 161, 242, 0.1);
     color: rgb(29, 161, 242);
   }
-  ${p => p.active && css`
+  ${p => p.$active && css`
     border-bottom: 2px solid rgb(29, 161, 242);
     color: rgb(29, 161, 242);
   `}

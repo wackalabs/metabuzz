@@ -261,25 +261,25 @@ const Profile = (props) => {
               </ProfileSocialBox>
             </ProfileDetailsWrapper>
             <ProfileNavMenu>
-              <ProfileNavItem active={activeTab === 'Tweets'}
+              <ProfileNavItem $active={activeTab === 'Tweets'}
                 key="tweets"
                 onClick={() => changeTab('Tweets')}
               >
                 Tweets
               </ProfileNavItem>
-              <ProfileNavItem active={activeTab === 'Tweets&Replies'}
+              <ProfileNavItem $active={activeTab === 'Tweets&Replies'}
                 key="replies"
                 onClick={() => changeTab('Tweets&Replies')}
               >
                 Tweets & replies
               </ProfileNavItem>
-              <ProfileNavItem active={activeTab === 'Media'}
+              <ProfileNavItem $active={activeTab === 'Media'}
                 key="media"
                 onClick={() => changeTab('Media')}
               >
                 Media
               </ProfileNavItem>
-              <ProfileNavItem active={activeTab === 'Likes'}
+              <ProfileNavItem $active={activeTab === 'Likes'}
                 key="likes"
                 onClick={() => changeTab('Likes')}
               >
@@ -394,12 +394,12 @@ const Profile = (props) => {
               {memOpen ? (
                 <ModalBody>
                   <ExploreNavMenu>
-                    <ExploreNavItem active={tab == 'Followers'}
+                    <ExploreNavItem $active={tab == 'Followers'}
                       onClick={() => setTab('Followers')}
                     >
                       Followers
                     </ExploreNavItem>
-                    <ExploreNavItem active={tab == 'Following'}
+                    <ExploreNavItem $active={tab == 'Following'}
                       onClick={() => setTab('Following')}
                     >
                       Following
@@ -790,7 +790,7 @@ export const ProfileNavMenu = styled(Box)`
   border-bottom: 1px solid rgb(230, 236, 240);
 `
 
-export const ProfileNavItem = styled(Box)<{ active?: boolean }>`
+export const ProfileNavItem = styled(Box)<{ $active?: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   padding: 15px;
@@ -806,7 +806,7 @@ export const ProfileNavItem = styled(Box)<{ active?: boolean }>`
     background-color: rgba(29, 161, 242, 0.1);
     color: rgb(29, 161, 242);
   }
-  ${p => p.active && css`
+  ${p => p.$active && css`
     border-bottom: 2px solid rgb(29, 161, 242);
     color: rgb(29, 161, 242);
   `}
